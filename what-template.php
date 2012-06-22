@@ -3,7 +3,7 @@
  Plugin Name: What Template
  Plugin URI: http://wordpress.org/extend/plugins/what-template/
  Description: Adds the current page's template name to the admin bar.
- Version: 0.2
+ Version: 0.1
  Author: ironprogrammer
  Author URI: http://github.com/ironprogrammer
  */
