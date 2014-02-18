@@ -15,7 +15,7 @@ function ip_admin_bar_what_template() {
 		$wp_admin_bar->add_menu( array(
 			'id' => 'ip-template',
 			'parent' => 'top-secondary',
-			'title' => __( basename( $template ) )
+			'title' => __( $template )
 		) );
 	}
 }
