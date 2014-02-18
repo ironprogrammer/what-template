@@ -28,7 +28,8 @@ Use the automatic installer on the 'Plugins' page, or upload the unzipped plugin
 
 
 == ChangeLog ==
+= 0.1.1 =
+* Display full template path
 
 = 0.1 =
-
 * initial plugin version
