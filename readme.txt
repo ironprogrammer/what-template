@@ -22,11 +22,6 @@ Because this plugin reveals potentially sensitive information about the active t
 Use the automatic installer on the 'Plugins' page, or upload the unzipped plugin directory to your `/wp-content/plugins/` directory and activate it.
 
 
-== Screenshots ==
-
-1. Name of template used by current page.
-
-
 == ChangeLog ==
 
 = 0.1 =
