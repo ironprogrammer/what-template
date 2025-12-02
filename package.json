@@ -1,0 +1,22 @@
+{
+	"name": "what-template",
+	"version": "2.0.0",
+	"description": "Shows the current template name in the WordPress admin bar with support for classic, hybrid, and block themes.",
+	"scripts": {
+		"format": "npm run format:php",
+		"format:php": "composer run phpcbf",
+		"lint": "npm run lint:php",
+		"lint:php": "composer run phpcs",
+		"test": "WP_TESTS_DIR=/tmp/wordpress-tests-lib vendor/bin/phpunit --testdox",
+		"test:setup": "bin/install-wp-tests.sh wordpress_test root '' localhost latest"
+	},
+	"keywords": [
+		"wordpress",
+		"plugin",
+		"template",
+		"block-themes",
+		"fse"
+	],
+	"author": "ironprogrammer",
+	"license": "GPL-2.0-or-later"
+}
