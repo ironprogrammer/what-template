@@ -1,0 +1,42 @@
+# Build directories
+/dist
+/build
+/assets/build
+
+# Dependencies
+/node_modules
+/vendor
+
+# Compiled files
+*.min.css
+*.min.js
+*.map
+
+# Environment files
+.env
+.env.local
+debug.log
+
+# Claude Code settings (not needed for this project)
+/.claude
+AGENTS.md
+CLAUDE.md
+
+# IDE files
+/.vscode
+/.idea
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Backups
+*.sql
+*.tar.gz
+*.zip
+
+# PHPUnit cache
+.phpunit.result.cache
+
+# Test coverage
+/coverage
