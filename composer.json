@@ -1,0 +1,26 @@
+{
+	"name": "ironprogrammer/what-template",
+	"description": "Shows the current template name in the WordPress admin bar with support for classic, hybrid, and block themes.",
+	"type": "wordpress-plugin",
+	"license": "GPL-2.0-or-later",
+	"require": {
+		"php": ">=7.4"
+	},
+	"require-dev": {
+		"squizlabs/php_codesniffer": "^3.9",
+		"wp-coding-standards/wpcs": "^3.0",
+		"phpcompatibility/php-compatibility": "^9.3",
+		"phpunit/phpunit": "^9.6",
+		"yoast/phpunit-polyfills": "^2.0"
+	},
+	"scripts": {
+		"phpcs": "vendor/bin/phpcs --standard=phpcs.xml.dist",
+		"phpcbf": "vendor/bin/phpcbf --standard=phpcs.xml.dist",
+		"test": "vendor/bin/phpunit --testdox"
+	},
+	"config": {
+		"allow-plugins": {
+			"dealerdirect/phpcodesniffer-composer-installer": true
+		}
+	}
+}
