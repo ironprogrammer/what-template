@@ -41,3 +41,22 @@ tests_add_filter( 'muplugins_loaded', '_manually_load_plugin' );
 
 // Start up the WP testing environment.
 require "{$_tests_dir}/includes/bootstrap.php";
+
+/**
+ * Stub WP_Admin_Bar class for testing.
+ *
+ * WordPress test environment doesn't always load the admin bar class,
+ * so we provide a minimal stub for mocking in tests.
+ */
+if ( ! class_exists( 'WP_Admin_Bar' ) ) {
+	class WP_Admin_Bar {
+		/**
+		 * Add a node to the admin bar.
+		 *
+		 * @param array $args Node arguments.
+		 */
+		public function add_node( $args ) {
+			// Stub method for testing.
+		}
+	}
+}
