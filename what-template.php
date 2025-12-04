@@ -2,7 +2,7 @@
 /**
  * Plugin Name: What Template
  * Plugin URI: https://wordpress.org/plugins/what-template/
- * Description: Shows the current template name in the WordPress admin bar with support for classic, hybrid, and block themes.
+ * Description: Shows information about the current template in the WordPress admin bar, with support for classic, hybrid, and block themes.
  * Author: ironprogrammer
  * Author URI: https://brianalexander.com
  * License: GPL v2 or later
