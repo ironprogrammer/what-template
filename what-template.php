@@ -1,22 +1,30 @@
 <?php
-/*
- Plugin Name: What Template
- Plugin URI: http://wordpress.org/extend/plugins/what-template/
- Description: Adds the current page's template name to the admin bar.
- Version: 0.1
- Author: ironprogrammer
- Author URI: http://github.com/ironprogrammer
+/**
+ * Plugin Name: What Template
+ * Plugin URI: https://wordpress.org/plugins/what-template/
+ * Description: Shows information about the current template in the WordPress admin bar, with support for classic, hybrid, and block themes.
+ * Author: ironprogrammer
+ * Author URI: https://brianalexander.com
+ * License: GPL v2 or later
+ * License URI: https://www.gnu.org/licenses/gpl-2.0.html
+ * Text Domain: what-template
+ * Version: 2.0.0
+ * Requires at least: 5.9
+ * Tested up to: 6.9
+ * Requires PHP: 7.4
+ *
+ * @package What_Template
  */
 
-function ip_admin_bar_what_template() {
-	global $wp_admin_bar;
-	global $template;
-	if ( $template ) {
-		$wp_admin_bar->add_menu( array(
-			'id' => 'ip-template',
-			'parent' => 'top-secondary',
-			'title' => __( basename( $template ) )
-		) );
-	}
+namespace IronProgrammer\WhatTemplate;
+
+// Exit if accessed directly.
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
 }
-add_action( 'wp_before_admin_bar_render', 'ip_admin_bar_what_template' );
+
+// Load the main plugin class.
+require_once plugin_dir_path( __FILE__ ) . 'includes/class-what-template.php';
+
+// Initialize the plugin.
+new What_Template();
