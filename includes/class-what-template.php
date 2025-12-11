@@ -110,6 +110,7 @@ class What_Template {
 			'theme_type'      => $theme_type,
 			'friendly_name'   => $friendly_name,
 			'template_file'   => $template_file,
+			'template_path'   => $template,
 			'template_slug'   => null,
 			'template_source' => null,
 			'is_child_theme'  => $is_child_theme,
@@ -328,21 +329,64 @@ class What_Template {
 
 		// Add template file/slug.
 		if ( $template_info['template_file'] ) {
-			$wp_admin_bar->add_node(
-				array(
-					'id'     => 'what-template-file',
-					'parent' => 'what-template',
-					/* translators: %s: Template filename */
-					'title'  => sprintf( __( 'Template: %s', 'what-template' ), esc_html( $template_info['template_file'] ) ),
-				)
+			$node_args = array(
+				'id'     => 'what-template-file',
+				'parent' => 'what-template',
+				/* translators: %s: Template filename */
+				'title'  => sprintf( __( 'Template: %s', 'what-template' ), esc_html( $template_info['template_file'] ) ),
 			);
+
+			// Add title attribute with relative path if available.
+			if ( ! empty( $template_info['template_path'] ) ) {
+				// Convert to path relative to ABSPATH.
+				$relative_path = str_replace( ABSPATH, '', $template_info['template_path'] );
+				$node_args['meta'] = array(
+					'title' => esc_attr( $relative_path ),
+				);
+			}
+
+			$wp_admin_bar->add_node( $node_args );
 		} elseif ( $template_info['template_slug'] ) {
 			$wp_admin_bar->add_node(
 				array(
 					'id'     => 'what-template-slug',
 					'parent' => 'what-template',
 					/* translators: %s: Template slug */
-					'title'  => sprintf( __( 'Slug: %s', 'what-template' ), esc_html( $template_info['template_slug'] ) ),
+					'title'  => sprintf( __( 'Template Slug: %s', 'what-template' ), esc_html( $template_info['template_slug'] ) ),
+				)
+			);
+		}
+
+		// Add theme slug.
+		if ( ! empty( $template_info['theme_slug'] ) ) {
+			// Get actual theme directory path and make it relative to ABSPATH.
+			$theme_path = str_replace( ABSPATH, '', get_stylesheet_directory() );
+			$wp_admin_bar->add_node(
+				array(
+					'id'     => 'what-template-theme-slug',
+					'parent' => 'what-template',
+					/* translators: %s: Theme slug */
+					'title'  => sprintf( __( 'Theme: %s', 'what-template' ), esc_html( $template_info['theme_slug'] ) ),
+					'meta'   => array(
+						'title' => esc_attr( $theme_path ),
+					),
+				)
+			);
+		}
+
+		// Add parent theme slug for child themes.
+		if ( $template_info['is_child_theme'] && ! empty( $template_info['parent_slug'] ) ) {
+			// Get actual parent theme directory path and make it relative to ABSPATH.
+			$parent_path = str_replace( ABSPATH, '', get_template_directory() );
+			$wp_admin_bar->add_node(
+				array(
+					'id'     => 'what-template-parent-slug',
+					'parent' => 'what-template',
+					/* translators: %s: Parent theme slug */
+					'title'  => sprintf( __( 'Parent: %s', 'what-template' ), esc_html( $template_info['parent_slug'] ) ),
+					'meta'   => array(
+						'title' => esc_attr( $parent_path ),
+					),
 				)
 			);
 		}
@@ -365,30 +409,6 @@ class What_Template {
 				'title'  => sprintf( __( 'Type: %s', 'what-template' ), esc_html( $theme_type_label ) ),
 			)
 		);
-
-		// Add theme slug.
-		if ( ! empty( $template_info['theme_slug'] ) ) {
-			$wp_admin_bar->add_node(
-				array(
-					'id'     => 'what-template-theme-slug',
-					'parent' => 'what-template',
-					/* translators: %s: Theme slug */
-					'title'  => sprintf( __( 'Theme: %s', 'what-template' ), esc_html( $template_info['theme_slug'] ) ),
-				)
-			);
-		}
-
-		// Add parent theme slug for child themes.
-		if ( $template_info['is_child_theme'] && ! empty( $template_info['parent_slug'] ) ) {
-			$wp_admin_bar->add_node(
-				array(
-					'id'     => 'what-template-parent-slug',
-					'parent' => 'what-template',
-					/* translators: %s: Parent theme slug */
-					'title'  => sprintf( __( 'Parent: %s', 'what-template' ), esc_html( $template_info['parent_slug'] ) ),
-				)
-			);
-		}
 
 		// Add template source.
 		if ( ! empty( $template_info['template_source'] ) ) {
