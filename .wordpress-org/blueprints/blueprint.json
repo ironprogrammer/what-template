@@ -23,7 +23,7 @@
             "step": "installTheme",
             "themeZipFile": {
                 "resource": "wordpress.org/themes",
-                "slug": "twentytwentyone"
+                "slug": "twentytwentyfive"
             },
             "options": {
                 "activate": true
