@@ -17,8 +17,9 @@
 .env.local
 debug.log
 
-# Claude Code settings (not needed for this project)
+# Agent settings
 /.claude
+/.cursor
 AGENTS.md
 CLAUDE.md
 
