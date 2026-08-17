@@ -339,7 +339,7 @@ class What_Template {
 			// Add title attribute with relative path if available.
 			if ( ! empty( $template_info['template_path'] ) ) {
 				// Convert to path relative to ABSPATH.
-				$relative_path = str_replace( ABSPATH, '', $template_info['template_path'] );
+				$relative_path     = str_replace( ABSPATH, '', $template_info['template_path'] );
 				$node_args['meta'] = array(
 					'title' => esc_attr( $relative_path ),
 				);
