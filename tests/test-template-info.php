@@ -110,7 +110,6 @@ class Test_Template_Info extends WP_UnitTestCase {
 		// Get friendly name.
 		$reflection = new ReflectionClass( $this->plugin );
 		$method = $reflection->getMethod( 'get_friendly_name' );
-		$method->setAccessible( true );
 
 		$result = $method->invoke( $this->plugin );
 
@@ -150,7 +149,6 @@ class Test_Template_Info extends WP_UnitTestCase {
 
 		$reflection = new ReflectionClass( $this->plugin );
 		$method = $reflection->getMethod( 'get_template_edit_link' );
-		$method->setAccessible( true );
 
 		$result = $method->invoke( $this->plugin, $template_info );
 
@@ -173,7 +171,6 @@ class Test_Template_Info extends WP_UnitTestCase {
 
 		$reflection = new ReflectionClass( $this->plugin );
 		$method = $reflection->getMethod( 'get_classic_template_info' );
-		$method->setAccessible( true );
 
 		$result = $method->invoke( $this->plugin );
 
