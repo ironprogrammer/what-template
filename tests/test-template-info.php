@@ -161,6 +161,75 @@ class Test_Template_Info extends WP_UnitTestCase {
 	}
 
 	/**
+	 * Get the query arguments from a generated edit link.
+	 *
+	 * @param string $url Edit link URL.
+	 * @return array Parsed query arguments.
+	 */
+	private function get_edit_link_args( $url ) {
+		$args = array();
+		parse_str( (string) wp_parse_url( $url, PHP_URL_QUERY ), $args );
+
+		return $args;
+	}
+
+	/**
+	 * Test that the edit link targets the parent theme for an inherited template.
+	 *
+	 * The child fixture ships only style.css, so index.php resolves from the
+	 * parent. Scoping the file editor to the child makes WordPress refuse the
+	 * edit with "Sorry, that file cannot be edited."
+	 */
+	public function test_edit_link_targets_parent_theme_for_inherited_template() {
+		switch_theme( 'default-child-no-theme-json' );
+
+		$this->assertTrue( is_child_theme(), 'Child theme fixture should be active.' );
+
+		$template_info = array(
+			'theme_type'    => 'classic',
+			'template_file' => 'index.php',
+			'template_path' => get_template_directory() . '/index.php',
+		);
+
+		$reflection = new ReflectionClass( $this->plugin );
+		$method     = $reflection->getMethod( 'get_template_edit_link' );
+
+		$result = $method->invoke( $this->plugin, $template_info );
+
+		$this->assertIsString( $result );
+
+		$args = $this->get_edit_link_args( $result );
+
+		$this->assertSame( 'index.php', $args['file'] );
+		$this->assertSame( get_template(), $args['theme'] );
+		$this->assertNotSame( get_stylesheet(), $args['theme'] );
+	}
+
+	/**
+	 * Test that the edit link targets the child theme for an overridden template.
+	 */
+	public function test_edit_link_targets_child_theme_for_overridden_template() {
+		switch_theme( 'default-child-no-theme-json' );
+
+		$template_info = array(
+			'theme_type'    => 'classic',
+			'template_file' => 'style.css',
+			'template_path' => get_stylesheet_directory() . '/style.css',
+		);
+
+		$reflection = new ReflectionClass( $this->plugin );
+		$method     = $reflection->getMethod( 'get_template_edit_link' );
+
+		$result = $method->invoke( $this->plugin, $template_info );
+
+		$this->assertIsString( $result );
+
+		$args = $this->get_edit_link_args( $result );
+
+		$this->assertSame( get_stylesheet(), $args['theme'] );
+	}
+
+	/**
 	 * Test that template info structure is correct for classic themes.
 	 */
 	public function test_classic_template_info_structure() {
