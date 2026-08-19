@@ -10,7 +10,7 @@
  * Text Domain: what-template
  * Version: 2.0.0
  * Requires at least: 5.9
- * Tested up to: 6.9
+ * Tested up to: 7.1
  * Requires PHP: 7.4
  *
  * @package What_Template

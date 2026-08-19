@@ -279,7 +279,49 @@ class What_Template {
 			return null;
 		}
 
-		return admin_url( 'theme-editor.php?file=' . rawurlencode( $template_info['template_file'] ) );
+		$args = array( 'file' => $template_info['template_file'] );
+
+		// A child theme inherits any template it doesn't override, but the file
+		// editor is scoped to one theme at a time and defaults to the active
+		// one. Without naming the theme that actually holds the file, editing
+		// an inherited template fails as an uneditable file.
+		$owner = $this->get_template_owner_stylesheet( $template_info );
+
+		if ( $owner ) {
+			$args['theme'] = $owner;
+		}
+
+		return add_query_arg( $args, admin_url( 'theme-editor.php' ) );
+	}
+
+	/**
+	 * Determine which theme directory holds the resolved template file.
+	 *
+	 * @param array $template_info Template information array.
+	 * @return string|null Stylesheet name of the owning theme, or null if undetermined.
+	 */
+	private function get_template_owner_stylesheet( $template_info ) {
+		if ( empty( $template_info['template_path'] ) ) {
+			return null;
+		}
+
+		$path = wp_normalize_path( $template_info['template_path'] );
+
+		// Check the child theme first, since it takes precedence when both
+		// themes provide the same template.
+		$stylesheet_dir = trailingslashit( wp_normalize_path( get_stylesheet_directory() ) );
+
+		if ( 0 === strpos( $path, $stylesheet_dir ) ) {
+			return get_stylesheet();
+		}
+
+		$template_dir = trailingslashit( wp_normalize_path( get_template_directory() ) );
+
+		if ( 0 === strpos( $path, $template_dir ) ) {
+			return get_template();
+		}
+
+		return null;
 	}
 
 	/**
@@ -339,7 +381,7 @@ class What_Template {
 			// Add title attribute with relative path if available.
 			if ( ! empty( $template_info['template_path'] ) ) {
 				// Convert to path relative to ABSPATH.
-				$relative_path = str_replace( ABSPATH, '', $template_info['template_path'] );
+				$relative_path     = str_replace( ABSPATH, '', $template_info['template_path'] );
 				$node_args['meta'] = array(
 					'title' => esc_attr( $relative_path ),
 				);

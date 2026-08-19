@@ -3,6 +3,7 @@
 	"version": "2.0.0",
 	"description": "Shows the current template name in the WordPress admin bar with support for classic, hybrid, and block themes.",
 	"scripts": {
+		"build:zip": "rm -rf dist what-template.zip && mkdir -p dist/what-template && cp -R src/. dist/what-template/ && find dist -name '.DS_Store' -delete && cd dist && zip -rq ../what-template.zip what-template",
 		"format": "npm run format:php",
 		"format:php": "composer run phpcbf",
 		"lint": "npm run lint:php",

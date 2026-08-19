@@ -44,7 +44,7 @@ The plugin includes a Git loader at the root level, so it will work immediately 
 
 - **WordPress**: 5.9 or higher
 - **PHP**: 7.4 or higher
-- **Tested up to**: WordPress 6.9
+- **Tested up to**: WordPress 7.1
 
 ## Contributing
 

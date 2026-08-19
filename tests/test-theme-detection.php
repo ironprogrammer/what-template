@@ -78,7 +78,6 @@ class Test_Theme_Detection extends WP_UnitTestCase {
 		// Use reflection to access private method.
 		$reflection = new ReflectionClass( $this->plugin );
 		$method = $reflection->getMethod( 'get_theme_type' );
-		$method->setAccessible( true );
 
 		$result = $method->invoke( $this->plugin );
 
