@@ -1,44 +1,20 @@
 {
-    "$schema": "https://playground.wordpress.net/blueprint-schema.json",
-    "landingPage": "/",
-    "phpExtensionBundles": [
-        "kitchen-sink"
-    ],
-    "steps": [
-        {
-            "step": "login",
-            "username": "admin",
-            "password": "password"
-        },
-        {
-            "step": "installPlugin",
-            "pluginData": {
-                "resource": "wordpress.org/plugins",
-                "slug": "what-template"
-            },
-            "options": {
-                "activate": true
-            }
-        },
-        {
-            "step": "installTheme",
-            "themeData": {
-                "resource": "wordpress.org/themes",
-                "slug": "twentytwentyone"
-            },
-            "options": {
-                "activate": false
-            }
-        },
-        {
-            "step": "installTheme",
-            "themeData": {
-                "resource": "wordpress.org/themes",
-                "slug": "twentytwentyfive"
-            },
-            "options": {
-                "activate": true
-            }
-        }
-    ]
+	"$schema": "https://playground.wordpress.net/blueprint-schema.json",
+	"version": 2,
+	"applicationOptions": {
+		"wordpress-playground": {
+			"landingPage": "/",
+			"login": {
+				"username": "admin",
+				"password": "password"
+			}
+		}
+	},
+	"plugins": [
+		"what-template"
+	],
+	"themes": [
+		"twentytwentyone"
+	],
+	"activeTheme": "twentytwentyfive"
 }
